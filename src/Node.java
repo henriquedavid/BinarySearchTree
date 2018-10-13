@@ -15,6 +15,10 @@ public class Node<T> {
     T value;
     // Right node of the node.
     Node<T> right;
+    // Number of nodes on the left;
+    int numbLeft;
+    // Number of nodes on the right;
+    int numbRight;
     
     /**
      * Construct to make a null node.
@@ -23,6 +27,8 @@ public class Node<T> {
         left = null;
         value = null;
         right = null;
+        numbLeft = 0;
+        numbRight = 0;
     }
     
     /**
@@ -36,6 +42,8 @@ public class Node<T> {
         left = l;
         value = v;
         right = r;
+        numbLeft = 0;
+        numbRight = 0;
     }
     
     /**
@@ -91,4 +99,42 @@ public class Node<T> {
     public void setRight( Node<T> node ){
         right = node;
     }
+
+    /**
+     * Return the number of nodes on the left.
+     * 
+     * @return number of nodes on the left.
+     */
+    public int getNumbLeft() {
+        return numbLeft;
+    }
+
+    /**
+     * Change the number of the nodes on the left.
+     * 
+     * @param numbLeft new number of nodes on the left.
+     */
+    public void setNumbLeft(int numbLeft) {
+        this.numbLeft = numbLeft;
+    }
+
+    /**
+     * Return the number of nodes on the right.
+     * 
+     * @return number of nodes on the right.
+     */
+    public int getNumbRight() {
+        return numbRight;
+    }
+
+    /**
+     * Change the number of the nodes on the right.
+     * 
+     * @param numbRight new number of nodes on the right.
+     */
+    public void setNumbRight(int numbRight) {
+        this.numbRight = numbRight;
+    }
+    
+    
 }
