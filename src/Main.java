@@ -57,6 +57,18 @@ public class Main {
             if( acao.contains("MEDIANA")){
                 System.out.println("A mediana é " + abb.mediana());
             }
+            
+            if( acao.contains("REMOVA ") ){
+                char[] valor = acao.toCharArray();
+                String valorS = "";
+                for( int i = 7; i < acao.length(); i++){
+                    valorS += valor[i];
+                }
+                int valorInteger = Integer.parseInt(valorS);
+                abb.remove(valorInteger);
+                System.out.println("Removido!!!");
+                System.out.println(abb.ordem(abb.root));
+            }
         }
         
         
