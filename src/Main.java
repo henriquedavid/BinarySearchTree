@@ -53,6 +53,10 @@ public class Main {
                 int valorInteger = Integer.parseInt(valorS);
                 System.out.println(valorInteger + "º elemento é " + abb.enesimoElemento(valorInteger));
             }
+            
+            if( acao.contains("MEDIANA")){
+                System.out.println("A mediana é " + abb.mediana());
+            }
         }
         
         

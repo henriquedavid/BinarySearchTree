@@ -321,6 +321,42 @@ public class BinaryTree {
         
     }
     
+    public int mediana(){
+        ArrayList<Integer> lista = new ArrayList<>();
+        Node aux = root;
+        
+        if(root != null){
+            
+            char[] valores = ordem(aux).toCharArray();
+            String valor = "";
+            for(int i = 0; i < valores.length; i++){
+                if( valores[i] == ' ' ){
+                    lista.add(Integer.parseInt(valor));
+                    valor = "";
+                } else{
+                    valor += valores[i];
+                }
+                
+            }
+            
+            if(lista.size() == 1){
+                return lista.get(0);
+            } else if( lista.size()/2 != 0 ){
+                int metade = lista.size()/2;
+                return lista.get(metade);
+            } else{
+                int metade = lista.size()/2;
+                if( lista.get(metade) > lista.get(metade+1) )
+                    return lista.get(metade+1);
+                else
+                    return lista.get(metade);
+            }
+            
+        }
+        
+        return 0;
+    }
+    
     
     
 }
