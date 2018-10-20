@@ -32,6 +32,8 @@ public class Main {
             }
         }
         
+        String percursoEmOrdem = abb.ordem(abb.root);
+        System.out.println(percursoEmOrdem);
                
 
     }

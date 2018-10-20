@@ -250,7 +250,7 @@ public class BinaryTree {
         
         if(root != null){
             
-            ordem(aux, lista);
+            //ordem(aux, lista);
             
             if(lista.size() < x)
                 return lista.get(x);
@@ -260,35 +260,21 @@ public class BinaryTree {
         return 0;
     }
     
-    public void ordem(Node ptr, ArrayList<Integer> lista){
-        if(ptr.esq != null){
-            ordem(ptr.esq, lista);
-        }
+    // Percurso em ordem
+    public String ordem(Node ptr){
+        String percorrimento = "";
         
-        //lista.add(visita(ptr));
+        if(ptr == null)
+            return "";
         
-        if(ptr.dir != null){
-            ordem(ptr.dir, lista);
-        } 
+        percorrimento += ordem(ptr.esq);
+        percorrimento += ptr.data + " ";
+        percorrimento += ordem(ptr.dir);
+        
+        return percorrimento;
+        
     }
     
-//    public int visita(Node ptr){
-//        int alt1 = 0;
-//        int alt2 = 0;
-//        if(ptr.esq != null)
-//            alt1 = ptr.esq.altura;
-//         else
-//            alt1 = 0;
-//        if(ptr.dir != null)
-//            alt2 = ptr.dir.altura;
-//        else
-//            alt2 = 0;
-//        if( alt1 > alt2 )
-//            ptr.altura = alt1 + 1;
-//        else
-//            ptr.altura = alt2 + 1;
-//        
-//        return ptr.altura;
-//    }
+    
     
 }
