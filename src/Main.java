@@ -17,6 +17,8 @@ public class Main {
         String segun = "";//entrada.nextLine();
         ArrayList<String> comandos = lerSegundoArquivo(segun);
 
+        String percursoEmOrdem = abb.ordem(abb.root);
+        System.out.println("Simétrica/Ordem: " + percursoEmOrdem);
         
         for(String acao : comandos){
             if(acao.equals("IMPRIMA"))
@@ -39,12 +41,21 @@ public class Main {
                     valorS += valor[i];
                 }
                 int valorInteger = Integer.parseInt(valorS);
-                System.out.println("Elemento na posicao " + valorInteger + ": " + abb.posicao(valorInteger));
+                System.out.println(valorInteger + " está na posição " + abb.posicao(valorInteger));
+            }
+            
+            if( acao.contains("ENESIMO ") ){
+                char[] valor = acao.toCharArray();
+                String valorS = "";
+                for( int i = 8 ; i < acao.length(); i++){
+                    valorS += valor[i];
+                }
+                int valorInteger = Integer.parseInt(valorS);
+                System.out.println(valorInteger + "º elemento é " + abb.enesimoElemento(valorInteger));
             }
         }
         
-        //String percursoEmOrdem = abb.ordem(abb.root);
-        //System.out.println(percursoEmOrdem);
+        
                        
 
     }

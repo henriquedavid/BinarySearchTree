@@ -243,8 +243,8 @@ public class BinaryTree {
         return valor;
     }
 
-    public int posicao(int x){
-        
+    public int enesimoElemento(int x){
+        x-=1;
         ArrayList<Integer> lista = new ArrayList<>();
         Node aux = root;
         
@@ -263,6 +263,43 @@ public class BinaryTree {
             }
             if(lista.size() > x)
                 return lista.get(x);
+            
+        }
+        
+        return 0;
+    }
+    
+    public int posicao( int x ){
+        ArrayList<Integer> lista = new ArrayList<>();
+        Node aux = root;
+        
+        if(root != null){
+            
+            char[] valores = ordem(aux).toCharArray();
+            String valor = "";
+            for(int i = 0; i < valores.length; i++){
+                if( valores[i] == ' ' ){
+                    lista.add(Integer.parseInt(valor));
+                    valor = "";
+                } else{
+                    valor += valores[i];
+                }
+                
+            }
+            
+            
+            
+            int posicao = 0;
+            
+            for(int a = 0; a < lista.size() ; a++){
+                if(lista.get(a) == x){
+                    posicao = a;
+                }
+            }
+            
+            posicao += 1;
+            
+            return posicao;
             
         }
         
