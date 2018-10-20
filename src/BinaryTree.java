@@ -250,9 +250,18 @@ public class BinaryTree {
         
         if(root != null){
             
-            //ordem(aux, lista);
-            
-            if(lista.size() < x)
+            char[] valores = ordem(aux).toCharArray();
+            String valor = "";
+            for(int i = 0; i < valores.length; i++){
+                if( valores[i] == ' ' ){
+                    lista.add(Integer.parseInt(valor));
+                    valor = "";
+                } else{
+                    valor += valores[i];
+                }
+                
+            }
+            if(lista.size() > x)
                 return lista.get(x);
             
         }

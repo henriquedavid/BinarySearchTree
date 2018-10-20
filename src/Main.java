@@ -9,11 +9,11 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         BinaryTree abb = new BinaryTree();
 
-        System.out.println("Informe o nome do primeiro arquivo de entrada: ");
+        //System.out.println("Informe o nome do primeiro arquivo de entrada: ");
         String prim = "";//entrada.nextLine();
         lerArquivoPrimeiro(prim, abb);      
                 
-        System.out.println("Informe o nome do segundo arquivo de entrada: ");
+        //System.out.println("Informe o nome do segundo arquivo de entrada: ");
         String segun = "";//entrada.nextLine();
         ArrayList<String> comandos = lerSegundoArquivo(segun);
 
@@ -21,6 +21,7 @@ public class Main {
         for(String acao : comandos){
             if(acao.equals("IMPRIMA"))
                 System.out.println(abb.toString());
+            
             if(acao.contains("BUSCAR ")){
                 char[] valor = acao.toCharArray();
                 String valorS = "";
@@ -30,11 +31,21 @@ public class Main {
                 int valorInteger = Integer.parseInt(valorS);
                 abb.search(abb.root, valorInteger);
             }
+            
+            if(acao.contains("POSICAO ")){
+                char[] valor = acao.toCharArray();
+                String valorS = "";
+                for( int i = 8 ; i < acao.length(); i++){
+                    valorS += valor[i];
+                }
+                int valorInteger = Integer.parseInt(valorS);
+                System.out.println("Elemento na posicao " + valorInteger + ": " + abb.posicao(valorInteger));
+            }
         }
         
-        String percursoEmOrdem = abb.ordem(abb.root);
-        System.out.println(percursoEmOrdem);
-               
+        //String percursoEmOrdem = abb.ordem(abb.root);
+        //System.out.println(percursoEmOrdem);
+                       
 
     }
 
