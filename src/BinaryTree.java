@@ -1,10 +1,12 @@
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 
 public class BinaryTree {
 
     Node root;
+    int altura = 0;
 
     public BinaryTree() {
         root = null;
@@ -32,20 +34,25 @@ public class BinaryTree {
     }
 
     public void insert(Node ptr, int data) {
+        
         if (root == null) {
-            root = new Node(data, null, null);
+            root = new Node(data, null, null, 0);
         } else {
             if ((int) data < (int) ptr.data) {
                 if (ptr.esq == null) {
-                    Node aux = new Node(data, null, null);
+                    altura += 1;
+                    Node aux = new Node(data, null, null, altura);
                     ptr.esq = aux;
+                    altura = 0;
                 } else {
                     insert(ptr.esq, data);
                 }
             } else if (data > ptr.data) {
                 if (ptr.dir == null) {
-                    Node aux = new Node(data, null, null);
+                    altura += 1;
+                    Node aux = new Node(data, null, null, altura);
                     ptr.dir = aux;
+                    altura = 0;
                 } else {
                     insert(ptr.dir, data);
                 }
@@ -236,4 +243,52 @@ public class BinaryTree {
         return valor;
     }
 
+    public int posicao(int x){
+        
+        ArrayList<Integer> lista = new ArrayList<>();
+        Node aux = root;
+        
+        if(root != null){
+            
+            ordem(aux, lista);
+            
+            if(lista.size() < x)
+                return lista.get(x);
+            
+        }
+        
+        return 0;
+    }
+    
+    public void ordem(Node ptr, ArrayList<Integer> lista){
+        if(ptr.esq != null){
+            ordem(ptr.esq, lista);
+        }
+        
+        //lista.add(visita(ptr));
+        
+        if(ptr.dir != null){
+            ordem(ptr.dir, lista);
+        } 
+    }
+    
+//    public int visita(Node ptr){
+//        int alt1 = 0;
+//        int alt2 = 0;
+//        if(ptr.esq != null)
+//            alt1 = ptr.esq.altura;
+//         else
+//            alt1 = 0;
+//        if(ptr.dir != null)
+//            alt2 = ptr.dir.altura;
+//        else
+//            alt2 = 0;
+//        if( alt1 > alt2 )
+//            ptr.altura = alt1 + 1;
+//        else
+//            ptr.altura = alt2 + 1;
+//        
+//        return ptr.altura;
+//    }
+    
 }
