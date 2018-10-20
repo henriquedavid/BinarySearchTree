@@ -69,6 +69,18 @@ public class Main {
                 System.out.println("Removido!!!");
                 System.out.println(abb.ordem(abb.root));
             }
+            
+            if( acao.contains("INSIRA ")){
+                char[] valor = acao.toCharArray();
+                String valorS = "";
+                for( int i = 7; i < acao.length(); i++){
+                    valorS += valor[i];
+                }
+                int valorInteger = Integer.parseInt(valorS);
+                abb.insert(valorInteger);
+                System.out.println("Inserido!!!");
+                System.out.println(abb.ordem(abb.root));
+            }
         }
         
         
