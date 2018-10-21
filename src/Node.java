@@ -13,13 +13,13 @@ public class Node {
     int data;
     Node esq;
     Node dir;
-    int altura;
+    int nivel;
 
-    public Node(int data, Node esq, Node dir, int altura) {
+    public Node(int data, Node esq, Node dir, int nivel) {
         this.data = data;
         this.esq = esq;
         this.dir = dir;
-        this.altura = altura;
+        this.nivel = nivel;
     }
 
 }

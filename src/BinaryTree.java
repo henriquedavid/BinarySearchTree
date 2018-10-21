@@ -6,7 +6,8 @@ import java.util.Deque;
 public class BinaryTree {
 
     Node root;
-    int altura = 0;
+    int nivel = 1;
+    int nivel_maximo;
 
     public BinaryTree() {
         root = null;
@@ -36,28 +37,31 @@ public class BinaryTree {
     public void insert(Node ptr, int data) {
         
         if (root == null) {
-            root = new Node(data, null, null, 0);
+            root = new Node(data, null, null, nivel);
         } else {
             if ((int) data < (int) ptr.data) {
                 if (ptr.esq == null) {
-                    altura += 1;
-                    Node aux = new Node(data, null, null, altura);
+                	nivel += 1;
+                	nivel_maximo = nivel;
+                    Node aux = new Node(data, null, null, nivel);
                     ptr.esq = aux;
-                    altura = 0;
                 } else {
+                	nivel += 1;
                     insert(ptr.esq, data);
                 }
             } else if (data > ptr.data) {
                 if (ptr.dir == null) {
-                    altura += 1;
-                    Node aux = new Node(data, null, null, altura);
+                	nivel += 1;
+                	nivel_maximo = nivel;
+                    Node aux = new Node(data, null, null, nivel);
                     ptr.dir = aux;
-                    altura = 0;
                 } else {
+                	nivel += 1;
                     insert(ptr.dir, data);
                 }
             }
         }
+        nivel  = 1;
     }
 
     public void remove(int data) {
@@ -233,7 +237,8 @@ public class BinaryTree {
                 valor += aux.data + " ";
                 if (aux.esq != null) {
                     deque.add(aux.esq);
-                } else if (aux.dir != null) {
+                }
+                if (aux.dir != null) {
                     deque.add(aux.dir);
                 }
             }
@@ -357,6 +362,63 @@ public class BinaryTree {
         return 0;
     }
     
+    public ArrayList<Node> visitar() {
+    	ArrayList<Node> arrayNodes = new ArrayList<>();
+    	
+    	if(root == null) {
+    		return null;
+    	}else {
+    		 Deque<Node> deque = new ArrayDeque<>();
+             deque.addLast(root);
+             arrayNodes.add(root);
+
+             while (!deque.isEmpty()) {
+                 Node aux = deque.removeFirst();
+                 arrayNodes.add(aux);
+                 if (aux.esq != null) {
+                     deque.add(aux.esq);
+                 }
+                 if (aux.dir != null) {
+                     deque.add(aux.dir);
+                 }
+             }
+             
+             return arrayNodes;
+    	}
+    }
+    public boolean ehCompleta() {
+    	
+    	ArrayList<Node> lista = visitar();
+    	
+    	for(int i=0; i < lista.size(); i++) {
+    		Node aux = lista.get(i);
+    		if(aux.esq == null || aux.dir == null) {
+    			if(nivel_maximo >= 3 && aux.nivel <= nivel_maximo-2 ) {
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+    
+    public boolean ehCheia() {
+    	if(ehCompleta()) {
+    		
+    		ArrayList<Node> lista = visitar();
+        	boolean cheia = true;
+        	for(int i=0; i < lista.size(); i++) {
+        		Node aux = lista.get(i);
+        		if(aux.esq == null || aux.dir == null) {
+        			if(aux.nivel != nivel_maximo) {
+        				cheia = false;
+        			}
+        		}
+        	}
+        	return cheia;
+    	}else {
+    		return false;
+    	}
+    }
     
     
 }
