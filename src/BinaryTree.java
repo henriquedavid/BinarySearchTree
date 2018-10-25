@@ -37,26 +37,28 @@ public class BinaryTree {
     public void insert(Node ptr, int data) {
         
         if (root == null) {
-            root = new Node(data, null, null, nivel);
+            root = new Node(data, null, null, nivel, 0, 0);
         } else {
             if ((int) data < (int) ptr.data) {
                 if (ptr.esq == null) {
                 	nivel += 1;
                 	nivel_maximo = nivel;
-                    Node aux = new Node(data, null, null, nivel);
+                    Node aux = new Node(data, null, null, nivel, ptr.n_esq++, 0);
                     ptr.esq = aux;
                 } else {
                 	nivel += 1;
+                	ptr.n_esq += 1;
                     insert(ptr.esq, data);
                 }
             } else if (data > ptr.data) {
                 if (ptr.dir == null) {
                 	nivel += 1;
                 	nivel_maximo = nivel;
-                    Node aux = new Node(data, null, null, nivel);
+                    Node aux = new Node(data, null, null, nivel, 0, ptr.n_dir++);
                     ptr.dir = aux;
                 } else {
                 	nivel += 1;
+                	ptr.n_dir += 1;
                     insert(ptr.dir, data);
                 }
             }
@@ -234,7 +236,7 @@ public class BinaryTree {
 
             while (!deque.isEmpty()) {
                 Node aux = deque.removeFirst();
-                valor += aux.data + " ";
+                valor += aux.data + "( " + aux.n_esq + "," + aux.n_dir + ")\n";
                 if (aux.esq != null) {
                     deque.add(aux.esq);
                 }
@@ -327,7 +329,9 @@ public class BinaryTree {
     }
     
     public int mediana(){
-        ArrayList<Integer> lista = new ArrayList<>();
+    	int mediana  = (root.n_esq + root.n_esq + 1)/2;
+    	return enesimoElemento(mediana);
+        /*ArrayList<Integer> lista = new ArrayList<>();
         Node aux = root;
         
         if(root != null){
@@ -359,7 +363,7 @@ public class BinaryTree {
             
         }
         
-        return 0;
+        return 0;*/
     }
     
     public ArrayList<Node> visitar() {
