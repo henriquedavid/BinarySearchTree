@@ -81,18 +81,22 @@ public class Main {
                 System.out.println("Inserido!!!");
                 System.out.println(abb.ordem(abb.root));
             }
-        } 
-        System.out.println(abb.toString());
-        if(abb.ehCompleta()) {
-        	System.out.println("completa");
-        }else {
-        	System.out.println("n completa");
-        }
-        if(abb.ehCheia()) {
-        	System.out.println("É cheia");
-        }else {
-        	System.out.println("N é cheia");
-
+            
+            if(acao.equals("CHEIA")){
+                if(abb.ehCheia()){
+                    System.out.println("É cheia!");
+                } else{
+                    System.out.println("Não é cheia!");
+                }
+            }
+            
+            if(acao.equals("COMPLETA")){
+                if(abb.ehCompleta()){
+                    System.out.println("É completa!");
+                } else{
+                    System.out.println("Não é completa!");
+                }
+            }
         }
     }
 

@@ -35,35 +35,35 @@ public class BinaryTree {
     }
 
     public void insert(Node ptr, int data) {
-        
+
         if (root == null) {
-            root = new Node(data, null, null, nivel, 0, 0);
+            root = new Node(data, null, null, nivel, 0, 0, null);
         } else {
             if ((int) data < (int) ptr.data) {
                 if (ptr.esq == null) {
-                	nivel += 1;
-                	nivel_maximo = nivel;
-                    Node aux = new Node(data, null, null, nivel, ptr.n_esq++, 0);
+                    nivel += 1;
+                    nivel_maximo = nivel;
+                    Node aux = new Node(data, null, null, nivel, ptr.n_esq++, 0, ptr);
                     ptr.esq = aux;
                 } else {
-                	nivel += 1;
-                	ptr.n_esq += 1;
+                    nivel += 1;
+                    ptr.n_esq += 1;
                     insert(ptr.esq, data);
                 }
             } else if (data > ptr.data) {
                 if (ptr.dir == null) {
-                	nivel += 1;
-                	nivel_maximo = nivel;
-                    Node aux = new Node(data, null, null, nivel, 0, ptr.n_dir++);
+                    nivel += 1;
+                    nivel_maximo = nivel;
+                    Node aux = new Node(data, null, null, nivel, 0, ptr.n_dir++, ptr);
                     ptr.dir = aux;
                 } else {
-                	nivel += 1;
-                	ptr.n_dir += 1;
+                    nivel += 1;
+                    ptr.n_dir += 1;
                     insert(ptr.dir, data);
                 }
             }
         }
-        nivel  = 1;
+        nivel = 1;
     }
 
     public void remove(int data) {
@@ -94,7 +94,7 @@ public class BinaryTree {
                     aux2 = aux2.dir;
                 }
 
-                Node fath = findFather(aux2);
+                Node fath = aux2.father;
                 if (fath.esq == aux2) {
                     fath.esq = null;
                 } else {
@@ -118,7 +118,7 @@ public class BinaryTree {
                     aux2 = aux2.esq;
                 }
 
-                Node fath = findFather(aux2);
+                Node fath = aux2.father;
                 if (fath.esq == aux2) {
                     fath.esq = null;
                 } else {
@@ -142,7 +142,7 @@ public class BinaryTree {
         } else {
 
             // Find father.
-            Node father = findFather(node);
+            Node father = node.father;
 
             // 1st case:  This means that the node is a leaf. 
             if (node.esq == null && node.dir == null) {
@@ -182,7 +182,7 @@ public class BinaryTree {
                 }
 
                 // We have to find the father of the chosen.
-                Node father_leaf = findFather(chosen);
+                Node father_leaf = chosen.father;
 
                 if (father_leaf.esq == chosen) {
                     father_leaf.esq = null;
@@ -207,22 +207,22 @@ public class BinaryTree {
     }
 
     // Method to find the father of a node.
-    public Node findFather(Node node) {
-        Node aux = root;
-        Node father = aux;
-
-        while (aux != node) {
-
-            father = aux;
-            if (aux.data > node.data) {
-                aux = aux.esq;
-            } else {
-                aux = aux.dir;
-            }
-
-        }
-        return father;
-    }
+//    public Node findFather(Node node) {
+//        Node aux = root;
+//        Node father = aux;
+//
+//        while (aux != node) {
+//
+//            father = aux;
+//            if (aux.data > node.data) {
+//                aux = aux.esq;
+//            } else {
+//                aux = aux.dir;
+//            }
+//
+//        }
+//        return father;
+//    }
 
     public String toString() {
         String valor = "";
@@ -250,87 +250,87 @@ public class BinaryTree {
         return valor;
     }
 
-    public int enesimoElemento(int x){
-        x-=1;
+    public int enesimoElemento(int x) {
+        x -= 1;
         ArrayList<Integer> lista = new ArrayList<>();
         Node aux = root;
-        
-        if(root != null){
-            
+
+        if (root != null) {
+
             char[] valores = ordem(aux).toCharArray();
             String valor = "";
-            for(int i = 0; i < valores.length; i++){
-                if( valores[i] == ' ' ){
+            for (int i = 0; i < valores.length; i++) {
+                if (valores[i] == ' ') {
                     lista.add(Integer.parseInt(valor));
                     valor = "";
-                } else{
+                } else {
                     valor += valores[i];
                 }
-                
+
             }
-            if(lista.size() > x)
+            if (lista.size() > x) {
                 return lista.get(x);
-            
+            }
+
         }
-        
+
         return 0;
     }
-    
-    public int posicao( int x ){
+
+    public int posicao(int x) {
         ArrayList<Integer> lista = new ArrayList<>();
         Node aux = root;
-        
-        if(root != null){
-            
+
+        if (root != null) {
+
             char[] valores = ordem(aux).toCharArray();
             String valor = "";
-            for(int i = 0; i < valores.length; i++){
-                if( valores[i] == ' ' ){
+            for (int i = 0; i < valores.length; i++) {
+                if (valores[i] == ' ') {
                     lista.add(Integer.parseInt(valor));
                     valor = "";
-                } else{
+                } else {
                     valor += valores[i];
                 }
-                
+
             }
-            
-            
-            
+
             int posicao = 0;
-            
-            for(int a = 0; a < lista.size() ; a++){
-                if(lista.get(a) == x){
+
+            for (int a = 0; a < lista.size(); a++) {
+                if (lista.get(a) == x) {
                     posicao = a;
                 }
             }
-            
+
             posicao += 1;
-            
+
             return posicao;
-            
+
         }
-        
+
         return 0;
     }
-    
+
     // Percurso em ordem
-    public String ordem(Node ptr){
+    public String ordem(Node ptr) {
         String percorrimento = "";
-        
-        if(ptr == null)
+
+        if (ptr == null) {
             return "";
-        
+        }
+
         percorrimento += ordem(ptr.esq);
         percorrimento += ptr.data + " ";
         percorrimento += ordem(ptr.dir);
-        
+
         return percorrimento;
-        
+
     }
-    
-    public int mediana(){
-    	int mediana  = (root.n_esq + root.n_esq + 1)/2;
-    	return enesimoElemento(mediana);
+
+    public int mediana() {
+        int mediana = (root.n_esq + root.n_esq + 1) / 2;
+        return enesimoElemento(mediana);
         /*ArrayList<Integer> lista = new ArrayList<>();
         Node aux = root;
         
@@ -365,64 +365,64 @@ public class BinaryTree {
         
         return 0;*/
     }
-    
-    public ArrayList<Node> visitar() {
-    	ArrayList<Node> arrayNodes = new ArrayList<>();
-    	
-    	if(root == null) {
-    		return null;
-    	}else {
-    		 Deque<Node> deque = new ArrayDeque<>();
-             deque.addLast(root);
-             arrayNodes.add(root);
 
-             while (!deque.isEmpty()) {
-                 Node aux = deque.removeFirst();
-                 arrayNodes.add(aux);
-                 if (aux.esq != null) {
-                     deque.add(aux.esq);
-                 }
-                 if (aux.dir != null) {
-                     deque.add(aux.dir);
-                 }
-             }
-             
-             return arrayNodes;
-    	}
+    public ArrayList<Node> visitar() {
+        ArrayList<Node> arrayNodes = new ArrayList<>();
+
+        if (root == null) {
+            return null;
+        } else {
+            Deque<Node> deque = new ArrayDeque<>();
+            deque.addLast(root);
+            arrayNodes.add(root);
+
+            while (!deque.isEmpty()) {
+                Node aux = deque.removeFirst();
+                arrayNodes.add(aux);
+                if (aux.esq != null) {
+                    deque.add(aux.esq);
+                }
+                if (aux.dir != null) {
+                    deque.add(aux.dir);
+                }
+            }
+
+            return arrayNodes;
+        }
     }
+
     public boolean ehCompleta() {
-    	
-    	ArrayList<Node> lista = visitar();
-    	
-    	for(int i=0; i < lista.size(); i++) {
-    		Node aux = lista.get(i);
-    		if(aux.esq == null || aux.dir == null) {
-    			if(nivel_maximo >= 3 && aux.nivel <= nivel_maximo-2 ) {
-    				return false;
-    			}
-    		}
-    	}
-    	return true;
+
+        ArrayList<Node> lista = visitar();
+
+        for (int i = 0; i < lista.size(); i++) {
+            Node aux = lista.get(i);
+            if (aux.esq == null || aux.dir == null) {
+                if (nivel_maximo >= 3 && aux.nivel <= nivel_maximo - 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
-    
+
     public boolean ehCheia() {
-    	if(ehCompleta()) {
-    		
-    		ArrayList<Node> lista = visitar();
-        	boolean cheia = true;
-        	for(int i=0; i < lista.size(); i++) {
-        		Node aux = lista.get(i);
-        		if(aux.esq == null || aux.dir == null) {
-        			if(aux.nivel != nivel_maximo) {
-        				cheia = false;
-        			}
-        		}
-        	}
-        	return cheia;
-    	}else {
-    		return false;
-    	}
+        if (ehCompleta()) {
+
+            ArrayList<Node> lista = visitar();
+            boolean cheia = true;
+            for (int i = 0; i < lista.size(); i++) {
+                Node aux = lista.get(i);
+                if (aux.esq == null || aux.dir == null) {
+                    if (aux.nivel != nivel_maximo) {
+                        cheia = false;
+                    }
+                }
+            }
+            return cheia;
+        } else {
+            return false;
+        }
     }
-    
-    
+
 }

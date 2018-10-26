@@ -16,14 +16,16 @@ public class Node {
     int nivel;
     int n_esq;
     int n_dir;
+    Node father;
 
-    public Node(int data, Node esq, Node dir, int nivel, int n_esq, int n_dir) {
+    public Node(int data, Node esq, Node dir, int nivel, int n_esq, int n_dir, Node father) {
         this.data = data;
         this.esq = esq;
         this.dir = dir;
         this.nivel = nivel;
         this.n_esq = n_esq;
         this.n_dir = n_dir;
+        this.father = father;
     }
 
 }
