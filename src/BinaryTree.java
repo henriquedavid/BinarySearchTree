@@ -95,6 +95,7 @@ public class BinaryTree {
                 }
 
                 Node fath = aux2.father;
+                downElement(data);
                 if (fath.esq == aux2) {
                     fath.esq = null;
                 } else {
@@ -141,11 +142,12 @@ public class BinaryTree {
 
         } else {
 
-            // Find father.
+            // Take father.
             Node father = node.father;
 
             // 1st case:  This means that the node is a leaf. 
             if (node.esq == null && node.dir == null) {
+                downElement(data);
                 if (father.esq == node) {
                     father.esq = null;
                 } else {
@@ -155,6 +157,7 @@ public class BinaryTree {
             else if ((node.esq != null && node.dir == null)
                     || (node.esq == null && node.dir != null)) {
 
+                downElement(data);
                 // Son of the node.
                 Node son = null;
                 if (node.esq != null) {
@@ -173,6 +176,7 @@ public class BinaryTree {
 
             } // 3rd case: The node has two sons.
             else {
+                downElement(data);
 
                 // We're going to work with the rightmost node on the left
                 Node chosen = node.esq;
@@ -202,6 +206,21 @@ public class BinaryTree {
                 node.dir = null;
                 node.esq = null;
 
+            }
+        }
+    }
+    
+    public void downElement(int data){
+        Node aux = root;
+        
+        while(aux.data != data){
+            if(data < aux.data){
+                aux.n_esq--;
+                aux = aux.esq;
+            }
+            else{
+                aux.n_dir--;
+                aux = aux.dir;
             }
         }
     }
