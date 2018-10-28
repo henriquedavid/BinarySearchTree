@@ -9,3 +9,5 @@ To run the code on this repository it's necessary to install the Java JDK, on th
 ```$ javac Main.java```
 
 ```$ java Main```
+
+Observe that to run the commands and load a specific tree you need to edit the files "arquivo de comandos.txt" with the commands and "arquivo de entrada da ABB.txt" with the tree. So you can run the code.
